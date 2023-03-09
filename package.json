@@ -2,7 +2,6 @@
   "name": "reactfoodie",
   "version": "1.0.0",
   "description": "Great Food App",
-  "main": "App.js",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -12,6 +11,8 @@
     "process": "^0.11.10"
   },
   "scripts": {
+    "start":"npx parcel index.html",
+    "build":"npx parcel build index.html",
     "test": "jest"
   },
   "author": "",
