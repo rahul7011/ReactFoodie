@@ -1,51 +1,10 @@
-import React from "react";
-import ReactDom from "react-dom/client";
+//Put all the hard coded things into the config file
 
-/*
-Header
-    -Logo(Title)
-    Nav Items(rightSide)
-    -Cart
-Body
-    -Search Bar
-    -Restaurant List
-        -Restraunt Cards
-            -Image
-            -Name
-            -Rating
-            -Cusines
-Footer
-    -links
-    -Copyrights
-*/
-const Title = () => (
-  <a href="/">
-    <img src={require("./media/logo.png")} alt="MISSING JPG" className="logo" />
-  </a>
-);
-const Header = () => {
-  return (
-    <div className="header">
-      <Title />
-      <div className="nav-items">
-        <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
-          <li>Cart</li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-// ===================Optional chaining (?.)
-// The optional chaining (?.) operator accesses an object's property or calls a function.
-// If the object accessed or function called using this operator is undefined or null, the expression short
-// circuits and evaluates to undefined instead of throwing an error.
+export const Img_CDN_Url =
+  "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/";
 
 //Config Driven UI
-const restaurantList = [
+export const restaurantList = [
   {
     type: "restaurant",
     data: {
@@ -790,49 +749,3 @@ const restaurantList = [
     subtype: "basic",
   },
 ];
-
-const RestrauntCard = ({ cloudinaryImageId, name, cuisines, avgRating }) => {
-  //   //More destructuring
-  //   const { cloudinaryImageId, name, cuisines, avgRating } = restaurant.data;
-  return (
-    <div className="card">
-      <img
-        src={
-          "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
-          cloudinaryImageId
-        }
-      />
-      <h2>{name}</h2>
-      <h3>{cuisines.join(",")}</h3>
-      <h4>{avgRating} stars</h4>
-    </div>
-  );
-};
-
-//props - properties
-const Body = () => (
-  <div className="restaurant-list">
-    {/* Usage of props and spread(JS) */}
-    {
-      //Usage of map is prefered in industry instead of loops or forEach
-      restaurantList.map((restaurant) => {
-        // Never use index as your key
-        return <RestrauntCard {...restaurant.data} key={restaurant.data.id}/>;
-      })
-    }
-  </div>
-);
-const Footer = () => <h4>Footer</h4>;
-const AppLayout = () => {
-  return (
-    // React.fragement(Component that is exported by react)
-    <>
-      <Header></Header>
-      <Body></Body>
-      <Footer></Footer>
-    </>
-  );
-};
-
-const root = ReactDom.createRoot(document.getElementById("root"));
-root.render(<AppLayout />);
