@@ -25,7 +25,7 @@ const RestaurantMenu = () => {
     <div className="menu">
       <div>
         <h1>Restaurant id: {resId}</h1>
-        <img src={Img_CDN_Url + restaurant.cloudinaryImageId} />
+        <img src={Img_CDN_Url + restaurant?.cloudinaryImageId} />
         <h2>{restaurant?.name}</h2>
         <h3>{restaurant?.avgRating}</h3>
         <h3>{restaurant?.costForTwoMsg}</h3>
@@ -34,7 +34,7 @@ const RestaurantMenu = () => {
       <div >
         <h3>
           {Object.values(restaurant?.menu?.items).map((currMenu) => (
-            <li key={currMenu.id}>{currMenu.name}</li>
+            <li key={currMenu?.id}>{currMenu?.name}</li>
           ))}
         </h3>
       </div>

@@ -8,6 +8,7 @@ import Error from "./components/Error";
 import Contact from "./components/Contact.js";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestaurantMenu from "./components/RestaurantMenu.js";
+import Profile from "./components/Profile.js";
 
 const AppLayout = () => {
   return (
@@ -33,8 +34,16 @@ const appRouter = createBrowserRouter([
         element: <Body />,
       },
       {
+        //Nested Routing
         path: "/about",
         element: <About />,
+        children: [
+          {
+            //  path:"/profile", if I write this then it would be localhost:1234/profile
+            path: "profile", //if I write this then it would be localhost:1234/about/profile
+            element: <Profile />,
+          },
+        ],
       },
       {
         path: "/contact",
