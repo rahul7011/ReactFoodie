@@ -9,23 +9,33 @@
   display: flex;
 }
 .nav-items > ul > li {
-    padding: 10px;
+  padding: 10px;
 }
 
-.logo{
-    width: 100px;
+.logo {
+  width: 100px;
 }
-.card > img{
-    width: 100%;
+.card > img {
+  width: 100%;
 }
-.card{
+.card {
+  width: 200px;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 10px;
+  word-wrap: break-word;
+}
+.restaurant-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.shimmer-card {
     width: 200px;
-    border: 1px solid black;
-    padding: 10px;
+    height: 300px;
+    background-color: #edeaea;
     margin: 10px;
-    word-wrap: break-word
 }
-.restaurant-list{
-    display: flex;
-    flex-wrap: wrap;
+
+.menu{
+  display: flex;
 }
