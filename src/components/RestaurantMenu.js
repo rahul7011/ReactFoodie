@@ -8,15 +8,44 @@ const RestaurantMenu = () => {
   const params = useParams(); //it will fetch the id of the current page
   const { resId } = params; //destructring
   const [restaurant, setRestaurant] = useState(null);
+  const [uniqueValues, setUniqueValues] = useState([]);
+
   useEffect(() => {
     getRestaurantInfo();
   }, []);
+
+  useEffect(() => {
+    if(restaurant!== null)
+      getMenuInfo();
+  }, [restaurant]);
+  function getMenuInfo() {
+    // Store the values in an array
+    const valuesArray = Object.values(
+      Object.fromEntries(
+        Object.entries(
+          Object.values(
+            restaurant.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards
+          )
+        ).filter(([_, v]) => v != null)
+      )
+    ).flatMap((x) => {
+      if (x?.card?.card?.itemCards != null) {
+        return x?.card?.card?.itemCards.map((xx) => xx?.card?.info?.name);
+      }
+      return [];
+    });
+
+    // Store the unique values in a state variable
+    const uniqueValues = [...new Set(valuesArray)];
+    setUniqueValues(uniqueValues);
+  }
   async function getRestaurantInfo() {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/menu/v4/full?lat=21.1702401&lng=72.83106070000001&menuId=" +
+      "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7296171&lng=77.16663129999999&restaurantId=" +
         resId
     );
     const json = await data.json();
+    // console.log(json.data);
     setRestaurant(json.data);
   }
   return !restaurant ? (
@@ -25,18 +54,23 @@ const RestaurantMenu = () => {
     <div className="menu">
       <div>
         <h1>Restaurant id: {resId}</h1>
-        <img src={Img_CDN_Url + restaurant?.cloudinaryImageId} />
-        <h2>{restaurant?.name}</h2>
-        <h3>{restaurant?.avgRating}</h3>
-        <h3>{restaurant?.costForTwoMsg}</h3>
+        <img
+          src={
+            "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
+            restaurant?.cards[0]?.card?.card?.info?.cloudinaryImageId
+          }
+        />
+        <h2>{restaurant?.cards[0]?.card?.card?.info?.name}</h2>
+        <h3>{restaurant?.cards[0]?.card?.card?.info?.avgRating}</h3>
+        <h3>{restaurant?.cards[0]?.card?.card?.info?.costForTwoMessage}</h3>
       </div>
 
-      <div >
-        <h3>
-          {Object.values(restaurant?.menu?.items).map((currMenu) => (
-            <li key={currMenu?.id}>{currMenu?.name}</li>
+      <div>
+        <ul>
+          {uniqueValues.map((value) => (
+            <li key={value}>{value}</li>
           ))}
-        </h3>
+        </ul>
       </div>
     </div>
   );
