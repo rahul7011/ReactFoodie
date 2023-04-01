@@ -1,54 +1,23 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Img_CDN_Url } from "../config";
+import { Menu_CDN_Url } from "../config";
+import useRestaurant, { useUniqueMenu } from "../utils/useRestaurant";
 import Shimmer from "./Shimmer";
 //useParams:routing parameters(Hooks)
 const RestaurantMenu = () => {
   //how to read a dynamic URL params
   const params = useParams(); //it will fetch the id of the current page
   const { resId } = params; //destructring
-  const [restaurant, setRestaurant] = useState(null);
-  const [uniqueValues, setUniqueValues] = useState([]);
 
-  useEffect(() => {
-    getRestaurantInfo();
-  }, []);
+  //This will fetch all the Menu of the Restaurant
+  const restaurant = useRestaurant(resId);
 
-  useEffect(() => {
-    if(restaurant!== null)
-      getMenuInfo();
-  }, [restaurant]);
-  function getMenuInfo() {
-    // Store the values in an array
-    const valuesArray = Object.values(
-      Object.fromEntries(
-        Object.entries(
-          Object.values(
-            restaurant.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards
-          )
-        ).filter(([_, v]) => v != null)
-      )
-    ).flatMap((x) => {
-      if (x?.card?.card?.itemCards != null) {
-        return x?.card?.card?.itemCards.map((xx) => xx?.card?.info?.name);
-      }
-      return [];
-    });
-
-    // Store the unique values in a state variable
-    const uniqueValues = [...new Set(valuesArray)];
-    setUniqueValues(uniqueValues);
+  //here we are filtering all the Unique data out of the Menu of the Restaurant
+  let uniqueValues = null;
+  if (restaurant != null) {
+    uniqueValues = useUniqueMenu(restaurant);
   }
-  async function getRestaurantInfo() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=28.7296171&lng=77.16663129999999&restaurantId=" +
-        resId
-    );
-    const json = await data.json();
-    // console.log(json.data);
-    setRestaurant(json.data);
-  }
-  return !restaurant ? (
+
+  return !restaurant && !uniqueValues ? (
     <Shimmer />
   ) : (
     <div className="menu">
@@ -56,7 +25,7 @@ const RestaurantMenu = () => {
         <h1>Restaurant id: {resId}</h1>
         <img
           src={
-            "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
+            Menu_CDN_Url +
             restaurant?.cards[0]?.card?.card?.info?.cloudinaryImageId
           }
         />
