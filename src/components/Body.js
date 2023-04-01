@@ -1,8 +1,9 @@
 import RestrauntCard from "./ResturantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer.js";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { filterData } from "../utils/helper";
+import useOnline from "../utils/useOnline";
 
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
@@ -22,9 +23,11 @@ const Body = () => {
     setfilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
   }
 
-  // if (filteredRestaurants?.length == 0) {
-  //   return <h1>No Restaurant Matched your seach</h1>;
-  // }
+  //This will determine whether the user is online or not?
+  const isOnline = useOnline();
+  if (!isOnline) {
+    return <h1>🔴Offline,Check your Internet Connection</h1>;
+  }
 
   return allRestaurants.length === 0 ? (
     <Shimmer />
@@ -53,9 +56,12 @@ const Body = () => {
       <div className="restaurant-list">
         {filteredRestaurants.map((restaurant) => {
           return (
-						<Link to={"/restaurant/"+restaurant.data.id} key={restaurant.data.id}>
-            <RestrauntCard {...restaurant.data}  />
-						</Link>
+            <Link
+              to={"/restaurant/" + restaurant.data.id}
+              key={restaurant.data.id}
+            >
+              <RestrauntCard {...restaurant.data} />
+            </Link>
           );
         })}
       </div>

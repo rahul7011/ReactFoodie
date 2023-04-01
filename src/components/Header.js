@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import useAuth from "../utils/useAuth";
 //SPA-> Single Page Application
 //<a> tags will make our page reload(Bad flow)
 
@@ -14,7 +13,7 @@ export const Title = () => (
   </a>
 );
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn]=useAuth();
   return (
     <div className="header">
       <Title />
