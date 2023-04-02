@@ -1,15 +1,18 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDom from "react-dom/client";
 import Header from "./components/Header.js";
 import Body from "./components/Body";
 import Footer from "./components/Footer.js";
-import About from "./components/About.js";
 import Error from "./components/Error";
 import Contact from "./components/Contact.js";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestaurantMenu from "./components/RestaurantMenu.js";
 // import Profile from "./components/Profile.js"; //functional component
 import Profile from "./components/ProfileClass.js"; //Class based component
+import Shimmer from "./components/Shimmer.js";
+
+const About = lazy(() => import("./components/About")); //this will create chunks
+const Instamart = lazy(() => import("./components/Instamart")); //this will create chunks
 
 const AppLayout = () => {
   return (
@@ -37,7 +40,11 @@ const appRouter = createBrowserRouter([
       {
         //Nested Routing
         path: "/about",
-        element: <About />,
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <About />
+          </Suspense>
+        ),
         children: [
           {
             //  path:"/profile", if I write this then it would be localhost:1234/profile
@@ -54,6 +61,14 @@ const appRouter = createBrowserRouter([
       {
         path: "/restaurant/:resId",
         element: <RestaurantMenu />,
+      },
+      {
+        path: "/instamart",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Instamart />
+          </Suspense>
+        ),
       },
     ],
   },
