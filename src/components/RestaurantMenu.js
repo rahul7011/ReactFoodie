@@ -20,22 +20,22 @@ const RestaurantMenu = () => {
   return !restaurant && !uniqueValues ? (
     <Shimmer />
   ) : (
-    <div className="menu">
-      <div>
-        <h1>Restaurant id: {resId}</h1>
-        <img
+    <div className="flex">
+      <div className="m-2 p-4 text-center">
+        <h1 className="font-bold">Restaurant id: {resId}</h1>
+        <img className="shadow-xl rounded-lg"
           src={
             Menu_CDN_Url +
             restaurant?.cards[0]?.card?.card?.info?.cloudinaryImageId
           }
         />
-        <h2>{restaurant?.cards[0]?.card?.card?.info?.name}</h2>
-        <h3>{restaurant?.cards[0]?.card?.card?.info?.avgRating}</h3>
-        <h3>{restaurant?.cards[0]?.card?.card?.info?.costForTwoMessage}</h3>
+        <h2 className="p-2 font-bold text-pink-600">{restaurant?.cards[0]?.card?.card?.info?.name}</h2>
+        <h3 className="p-1 text-green-600">{restaurant?.cards[0]?.card?.card?.info?.avgRating} Stars</h3>
+        <h3 className="p-1 text-yellow-600">{restaurant?.cards[0]?.card?.card?.info?.costForTwoMessage}</h3>
       </div>
 
       <div>
-        <ul>
+        <ul className="list-disc">
           {uniqueValues.map((value) => (
             <li key={value}>{value}</li>
           ))}

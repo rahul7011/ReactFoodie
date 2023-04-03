@@ -4,11 +4,11 @@ import { Img_CDN_Url } from "../config.js";
 const RestrauntCard = ({ cloudinaryImageId, name, cuisines, avgRating }) => {
   //   const { cloudinaryImageId, name, cuisines, avgRating } = restaurant.data;
   return (
-    <div className="card">
+    <div className="w-56 h-64 p-2 m-2 shadow-md break-words hover:border-2 hover:border-red-600">
       <img src={Img_CDN_Url + cloudinaryImageId} />
-      <h2>{name}</h2>
-      <h3>{cuisines.join(",")}</h3>
-      <h4>{avgRating} stars</h4>
+      <h2 className="font-bold">{name}</h2>
+      <h3 className="text-sm">{cuisines.join(",")}</h3>
+      <h4 className="font-bold text-sm">{avgRating} stars</h4>
     </div>
   );
 };

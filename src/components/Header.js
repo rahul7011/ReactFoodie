@@ -8,36 +8,36 @@ export const Title = () => (
     <img
       src={require("../../media/logo.png")}
       alt="MISSING JPG"
-      className="logo"
+      className="h-28 p-2"
     />
   </a>
 );
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn]=useAuth();
   return (
-    <div className="header">
+    <div className="flex justify-between bg-pink-300 shadow-lg">
       <Title />
-      <div className="nav-items">
-        <ul>
+      <div className="nav-items font-bold">
+        <ul className="flex py-12">
           <Link to="/">
-            <li>Home</li>
+            <li className="px-4 hover:text-white">Home</li>
           </Link>
           <Link to="/about">
-            <li>About</li>
+            <li className="px-4 hover:text-white">About</li>
           </Link>
           <Link to="/contact">
-            <li>Contact</li>
+            <li className="px-4 hover:text-white">Contact</li>
           </Link>
-          <li>Cart</li>
+          <li className="px-4 hover:text-white">Cart</li>
           <Link to="/instamart">
-            <li>Instamart</li>
+            <li className="px-4 hover:text-white">Instamart</li>
           </Link>
         </ul>
       </div>
       {isLoggedIn ? (
-        <button onClick={() => setIsLoggedIn(false)}>LogOut</button>
+        <button className="px-4 font-bold hover:text-red-600 shadow-xl" onClick={() => setIsLoggedIn(false)}>LogOut</button>
       ) : (
-        <button onClick={() => setIsLoggedIn(true)}>Login</button>
+        <button className="px-4 font-bold hover:text-green-600 shadow-xl" onClick={() => setIsLoggedIn(true)}>Login</button>
       )}
     </div>
   );
