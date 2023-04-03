@@ -2,6 +2,7 @@ import ProfileFunctionComponent from "./Profile";
 import ProfileClassComponent from "./ProfileClass";
 import React from "react";
 import { Outlet } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 const About2 = () => {
   return (
     <div>
@@ -27,6 +28,14 @@ class About extends React.Component {
     console.log("Parent-render");
     return (
       <div>
+        {/* This is how we use Context in class components */}
+        <UserContext.Consumer>
+          {({ user }) => (
+            <h1 className="p-3 m-3 font-bold text-pink-600">
+              {user.name} - {user.email}
+            </h1>
+          )}
+        </UserContext.Consumer>
         <h1>About Us Page</h1>
         <p>This is the About Page</p>
 

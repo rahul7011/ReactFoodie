@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState } from "react";
 import ReactDom from "react-dom/client";
 import Header from "./components/Header.js";
 import Body from "./components/Body";
@@ -10,18 +10,29 @@ import RestaurantMenu from "./components/RestaurantMenu.js";
 // import Profile from "./components/Profile.js"; //functional component
 import Profile from "./components/ProfileClass.js"; //Class based component
 import Shimmer from "./components/Shimmer.js";
+import UserContext from "./utils/UserContext.js";
 
 const About = lazy(() => import("./components/About")); //this will create chunks
 const Instamart = lazy(() => import("./components/Instamart")); //this will create chunks
 
 const AppLayout = () => {
+  //Dynamic data that we can change using useEffect
+  const [user,setUser]=useState({
+    //These values will override the default values that we had provided in (UserContext.js)
+    user: {
+      name: "New User Name",
+      email: "newUser@fake.com",
+    },})
   return (
     // React.fragement(Component that is exported by react)
     <>
+    {/* If we want our data to be dyanmic(it will modify according to our useEffect(if used in future with data)) */}
+    <UserContext.Provider value={user}>
       <Header></Header>
       {/* All the children goes into the Outlet according to the route  */}
       <Outlet />
       <Footer></Footer>
+      </UserContext.Provider>
     </>
   );
 };

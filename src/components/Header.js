@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import useAuth from "../utils/useAuth";
+import { useContext } from "react";
+import UserContext from "../utils/UserContext";
 //SPA-> Single Page Application
 //<a> tags will make our page reload(Bad flow)
 
@@ -14,6 +16,7 @@ export const Title = () => (
 );
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn]=useAuth();
+  const {user}=useContext(UserContext);
   return (
     <div className="flex justify-between bg-pink-300 shadow-lg">
       <Title />
@@ -35,7 +38,7 @@ const Header = () => {
         </ul>
       </div>
       {isLoggedIn ? (
-        <button className="px-4 font-bold hover:text-red-600 shadow-xl" onClick={() => setIsLoggedIn(false)}>LogOut</button>
+        <button className="px-4 font-bold hover:text-red-600 shadow-xl" onClick={() => setIsLoggedIn(false)}>{user.name} LogOut</button>
       ) : (
         <button className="px-4 font-bold hover:text-green-600 shadow-xl" onClick={() => setIsLoggedIn(true)}>Login</button>
       )}
