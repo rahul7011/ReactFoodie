@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Menu_CDN_Url } from "../config";
-import useRestaurant, { useUniqueMenu } from "../utils/useRestaurant";
+import useRestaurant, { useMenu } from "../utils/useRestaurant";
 import Shimmer from "./Shimmer";
 import { addItem } from "../utils/cartSlice";
 import { useDispatch } from "react-redux";
@@ -15,7 +15,17 @@ const RestaurantMenu = () => {
   //here we are filtering all the Unique data out of the Menu of the Restaurant
   let uniqueValues = null;
   if (restaurant != null) {
-    uniqueValues = useUniqueMenu(restaurant);
+    uniqueValues = useMenu(restaurant);
+    {
+      const map = new Map();
+      uniqueValues = uniqueValues.filter((value) => {
+        if (map.has(value.id) == false) {
+          map.set(value.id, value);
+          return true;
+        }
+        return false;
+      });
+    }
   }
   //This will handle our dispatch action(addItem) for cartSlice
   const dispatch = useDispatch();
@@ -50,10 +60,16 @@ const RestaurantMenu = () => {
 
       <div>
         <ul className="list-disc">
-          {uniqueValues.map((value) => (
-            <li key={value}>
-              {value}
-              <button className="rounded-sm p-1 m-1 block bg-yellow-400" onClick={()=>addFoodItem(value)}> Add Item</button>
+          {uniqueValues.map((foodItem) => (
+            <li key={foodItem.id}>
+              {foodItem.name}
+              <button
+                className="rounded-sm p-1 m-1 block bg-yellow-400"
+                onClick={() => addFoodItem(foodItem)}
+              >
+                {" "}
+                Add Item
+              </button>
             </li>
           ))}
         </ul>

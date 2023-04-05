@@ -20,7 +20,7 @@ const useRestaurant = (resId) => {
   return restaurant;
 };
 
-export const useUniqueMenu = (restaurant) => {
+export const useMenu = (restaurant) => {
   // Store the values in an array
   const valuesArray = Object.values(
     Object.fromEntries(
@@ -32,7 +32,7 @@ export const useUniqueMenu = (restaurant) => {
     )
   ).flatMap((x) => {
     if (x?.card?.card?.itemCards != null) {
-      return x?.card?.card?.itemCards.map((xx) => xx?.card?.info?.name);
+      return x?.card?.card?.itemCards.map((xx) => xx?.card?.info);
     }
     return [];
   });

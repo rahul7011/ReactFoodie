@@ -11,7 +11,15 @@ const cartSlice = createSlice({
     addItem: (state, action) => {
       //state is the initialState of this slice
       //action is the data that is coming in
-
+      if (
+        state.items.find((obj) => obj.id === action.payload.id) != undefined
+      ) {
+        const new_obj = {
+          ...action.payload,
+          id: (parseInt(action.payload.id) + parseInt(state.items.length)).toString(),
+        };
+        action.payload = new_obj;
+      }
       state.items.push(action.payload);
     },
     removeItem: (state, action) => {

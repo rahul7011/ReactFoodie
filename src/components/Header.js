@@ -38,7 +38,9 @@ const Header = () => {
             <li className="px-4 hover:text-white">Instamart</li>
           </Link>
           <Link to="/cart">
-          <li className="px-4 hover:text-white">Cart {cartItems.length}</li>
+            <li className="px-4 hover:text-white">
+              Cart {cartItems.length > 0 ? cartItems.length : ""}
+            </li>
           </Link>
         </ul>
       </div>
