@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import useAuth from "../utils/useAuth";
 import { useContext } from "react";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 //SPA-> Single Page Application
 //<a> tags will make our page reload(Bad flow)
 
@@ -15,8 +16,10 @@ export const Title = () => (
   </a>
 );
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn]=useAuth();
-  const {user}=useContext(UserContext);
+  const [isLoggedIn, setIsLoggedIn] = useAuth();
+  const { user } = useContext(UserContext);
+  //Subscribing to the CartSlice
+  const cartItems = useSelector((store) => store.cart.items);
   return (
     <div className="flex justify-between bg-pink-300 shadow-lg">
       <Title />
@@ -31,16 +34,28 @@ const Header = () => {
           <Link to="/contact">
             <li className="px-4 hover:text-white">Contact</li>
           </Link>
-          <li className="px-4 hover:text-white">Cart</li>
           <Link to="/instamart">
             <li className="px-4 hover:text-white">Instamart</li>
+          </Link>
+          <Link to="/cart">
+          <li className="px-4 hover:text-white">Cart {cartItems.length}</li>
           </Link>
         </ul>
       </div>
       {isLoggedIn ? (
-        <button className="px-4 font-bold hover:text-red-600 shadow-xl" onClick={() => setIsLoggedIn(false)}>{user.name} LogOut</button>
+        <button
+          className="px-4 font-bold hover:text-red-600 shadow-xl"
+          onClick={() => setIsLoggedIn(false)}
+        >
+          {user.name} LogOut
+        </button>
       ) : (
-        <button className="px-4 font-bold hover:text-green-600 shadow-xl" onClick={() => setIsLoggedIn(true)}>Login</button>
+        <button
+          className="px-4 font-bold hover:text-green-600 shadow-xl"
+          onClick={() => setIsLoggedIn(true)}
+        >
+          Login
+        </button>
       )}
     </div>
   );

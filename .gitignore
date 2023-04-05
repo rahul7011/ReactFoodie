@@ -20,4 +20,5 @@ sketch
 .parcel-cache
 dist
 Notes.txt
+Notes.markdown
 # End of https://www.toptal.com/developers/gitignore/api/react
