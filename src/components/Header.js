@@ -3,16 +3,13 @@ import useAuth from "../utils/useAuth";
 import { useContext } from "react";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
+import Logo from "../../media/logo.png";
 //SPA-> Single Page Application
 //<a> tags will make our page reload(Bad flow)
 
 export const Title = () => (
   <a href="/">
-    <img
-      src={require("../../media/logo.png")}
-      alt="MISSING JPG"
-      className="h-28 p-2"
-    />
+    <img src={Logo} alt="MISSING JPG" className="h-28 p-2" />
   </a>
 );
 const Header = () => {
