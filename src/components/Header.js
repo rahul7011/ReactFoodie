@@ -9,7 +9,7 @@ import Logo from "../../media/logo.png";
 
 export const Title = () => (
   <a href="/">
-    <img src={Logo} alt="MISSING JPG" className="h-28 p-2" />
+    <img data-testid="logo" src={Logo} alt="MISSING JPG" className="h-28 p-2" />
   </a>
 );
 const Header = () => {
@@ -35,8 +35,8 @@ const Header = () => {
             <li className="px-4 hover:text-white">Instamart</li>
           </Link>
           <Link to="/cart">
-            <li className="px-4 hover:text-white">
-              Cart {cartItems.length > 0 ? cartItems.length : ""}
+            <li data-testid="cart" className="px-4 hover:text-white">
+              Cart{cartItems.length > 0 ? " "+cartItems.length : ""}
             </li>
           </Link>
         </ul>

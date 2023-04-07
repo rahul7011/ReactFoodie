@@ -58,12 +58,14 @@ const RestaurantMenu = () => {
         </h3>
       </div>
 
-      <div>
-        <ul className="list-disc">
+      <div className="p-5">
+        <h1 className="p-2 font-bold text-lg">Menu</h1>
+        <ul className="list-disc" data-testid="menu">
           {uniqueValues.map((foodItem) => (
             <li key={foodItem.id}>
               {foodItem.name}
               <button
+              data-testid="addBtn"
                 className="rounded-sm p-1 m-1 block bg-yellow-400"
                 onClick={() => addFoodItem(foodItem)}
               >
