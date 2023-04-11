@@ -4,6 +4,7 @@ import Shimmer from "./Shimmer.js";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/helper";
 import useOnline from "../utils/useOnline";
+import { All_Restaurant_Url } from "../config";
 
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
@@ -15,12 +16,11 @@ const Body = () => {
   }, []);
 
   async function getRestaurants() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7296171&lng=77.16663129999999&page_type=DESKTOP_WEB_LISTING"
-    );
+    const data = await fetch(All_Restaurant_Url);
     const json = await data.json();
     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
     setfilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    console.log(filteredRestaurants);
   }
 
   //This will determine whether the user is online or not?
