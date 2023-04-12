@@ -20,7 +20,7 @@ const Cart = () => {
       <h1 className="font-bold text-xl text-green-500">Cart Items</h1>
       {cartItems.length != 0 ? (
         <>
-          <table class="table-auto m-3 ml-auto mr-auto">
+          <table className="table-auto m-3 ml-auto mr-auto">
             <thead>
               <tr>
                 <th className="text-yellow-500">S.No</th>

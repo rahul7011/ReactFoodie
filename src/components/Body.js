@@ -20,7 +20,6 @@ const Body = () => {
     const json = await data.json();
     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
     setfilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-    console.log(filteredRestaurants);
   }
 
   //This will determine whether the user is online or not?
@@ -33,27 +32,22 @@ const Body = () => {
     <Shimmer />
   ) : (
     <>
-      <div className="p-4 bg-pink-300 my-5">
+      <div className="p-4 my-5 text-center">
         <input
           type="text"
-          className="rounded-lg m-2 p-1"
-          placeholder="Search"
+          className="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:ring-orange-500 block w-full rounded-md sm:text-sm focus:ring-1"
+          placeholder="Type to Search"
           value={searchTxt}
           data-testid="search-input"
           onChange={(e) => {
-            setSearchInput(e.target.value);
+            {
+              setSearchInput(e.target.value);
+              e.target.value !== ""
+                ? setfilteredRestaurants(filterData(searchTxt, allRestaurants))
+                : setfilteredRestaurants(allRestaurants);
+            }
           }}
         />
-        <button
-          data-testid="search-btn"
-          className="p-1 m-2 bg-purple-500 text-white rounded-lg hover:bg-purple-700"
-          onClick={() => {
-            const filteredData = filterData(searchTxt, allRestaurants);
-            setfilteredRestaurants(filteredData);
-          }}
-        >
-          Search
-        </button>
       </div>
       <div className="flex flex-wrap" data-testid="res-list">
         {filteredRestaurants.map((restaurant) => {

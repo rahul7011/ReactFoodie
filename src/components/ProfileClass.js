@@ -44,29 +44,7 @@ class Profile extends React.Component {
   //you cannot create a class based component without a render() method
   render() {
     console.log(this.props.name + "-render");
-    return (
-      <div>
-        <h1>
-          This is a Profile Page that is coming from the Class Based Component
-        </h1>
-        <h4>Name:{this.props.name}</h4>
-        <h4>Github Name:{this.state?.userInfo?.name}</h4>
-        <h4>Github Id:{this.state?.userInfo?.login}</h4>
-        <img src={this.state?.userInfo?.avatar_url} />
-        <h4>Count:{this.state.count}</h4>
-        <button
-          onClick={() => {
-            //  WE DO NOT MUTATE STATE DIRECTLY NEVER!!!!
-            //Never do-> this.state.count=something
-            this.setState({
-              count: 1,
-            });
-          }}
-        >
-          setCount
-        </button>
-      </div>
-    );
+    return <div></div>;
   }
 }
 export default Profile;

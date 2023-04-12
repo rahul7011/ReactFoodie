@@ -16,7 +16,6 @@ import Store from "./utils/Store.js";
 import Cart from "./components/Cart.js";
 
 const About = lazy(() => import("./components/About")); //this will create chunks
-const Instamart = lazy(() => import("./components/Instamart")); //this will create chunks
 
 const AppLayout = () => {
   //Dynamic data that we can change using useEffect
@@ -79,14 +78,6 @@ const appRouter = createBrowserRouter([
       {
         path: "/restaurant/:resId",
         element: <RestaurantMenu />,
-      },
-      {
-        path: "/instamart",
-        element: (
-          <Suspense fallback={<Shimmer />}>
-            <Instamart />
-          </Suspense>
-        ),
       },
       {
         path: "/cart",

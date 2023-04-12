@@ -1,7 +1,6 @@
 import { useRouteError } from "react-router-dom";
 const Error = () => {
     const err=useRouteError();  //To get the current error
-    console.log(err);
   return (
     <div>
       <h3 style={{color: "red",textAlign:"center"}}>{err.status+" : "+err.statusText}</h3>
