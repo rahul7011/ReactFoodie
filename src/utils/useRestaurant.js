@@ -12,7 +12,6 @@ const useRestaurant = (resId) => {
   async function getRestaurantInfo() {
     const data = await fetch(Restaurant_CDN_Url + resId);
     const json = await data.json();
-    // console.log(json.data);
     setRestaurant(json.data);
   }
 
@@ -26,7 +25,7 @@ export const useMenu = (restaurant) => {
     Object.fromEntries(
       Object.entries(
         Object.values(
-          restaurant.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards
+          restaurant?.cards[restaurant?.cards.length-1]?.groupedCard?.cardGroupMap?.REGULAR?.cards
         )
       ).filter(([_, v]) => v != null)
     )

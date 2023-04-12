@@ -10,7 +10,6 @@ const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [searchTxt, setSearchInput] = useState("");
   const [filteredRestaurants, setfilteredRestaurants] = useState([]);
-
   useEffect(() => {
     getRestaurants();
   }, []);
