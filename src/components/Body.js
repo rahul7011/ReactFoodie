@@ -48,7 +48,7 @@ const Body = () => {
           }}
         />
       </div>
-      <div className="flex flex-wrap" data-testid="res-list">
+      <div className="flex flex-wrap justify-center " data-testid="res-list">
         {filteredRestaurants.map((restaurant) => {
           return (
             <Link
