@@ -1,27 +1,30 @@
 import { useParams } from "react-router-dom";
-import { Menu_CDN_Url } from "../config";
+import { Img_CDN_Url, Menu_CDN_Url } from "../config";
 import useRestaurant, { useMenu } from "../utils/useRestaurant";
 import Shimmer from "./Shimmer";
 import { addItem } from "../utils/cartSlice";
 import { useDispatch } from "react-redux";
+import ItemQuantity from "./ItemQuantity";
 const RestaurantMenu = () => {
   const params = useParams();
   const { resId } = params;
   const restaurant = useRestaurant(resId);
-  console.log(restaurant);
   let uniqueValues = null;
   if (restaurant != null) {
     uniqueValues = useMenu(restaurant);
-    {
-      const map = new Map();
-      uniqueValues = uniqueValues.filter((value) => {
-        if (map.has(value.id) == false) {
-          map.set(value.id, value);
-          return true;
-        }
-        return false;
-      });
-    }
+    console.log(uniqueValues);
+    console.log(uniqueValues[0].card.card.itemCards);
+    // console.log(uniqueValues);
+    // {
+    //   const map = new Map();
+    //   uniqueValues = uniqueValues.filter((value) => {
+    //     if (map.has(value.id) == false) {
+    //       map.set(value.id, value);
+    //       return true;
+    //     }
+    //     return false;
+    //   });
+    // }
   }
   const dispatch = useDispatch();
   const addFoodItem = (value) => {
@@ -32,8 +35,8 @@ const RestaurantMenu = () => {
     <Shimmer />
   ) : (
     <div>
-      <div className="m-2 p-4 text-center bg-yellow-300 flex">
-        <div className="ml-40">
+      <div className="m-2 p-4 text-center bg-yellow-300 flex flex-col md:flex-row">
+        <div className="mx-auto md:ml-30 md:mr-5">
           <img
             className="shadow-xl rounded-lg w-80"
             src={
@@ -42,7 +45,7 @@ const RestaurantMenu = () => {
             }
           />
         </div>
-        <div className="ml-40 mt-10">
+        <div className="mx-auto md:ml-40 mt-10">
           <h1 className="p-2 font-bold text-orange-500 text-5xl">
             {restaurant?.cards[0]?.card?.card?.info?.name}
           </h1>
@@ -58,11 +61,11 @@ const RestaurantMenu = () => {
           <div className="flex flex-inline justify-between pt-5">
             {parseFloat(restaurant?.cards[0]?.card?.card?.info?.avgRating) <
             4.0 ? (
-              <p className="ml-5 font-bold text-sm text-orange-500">
+              <p className="mx-5 font-bold text-sm text-orange-500">
                 {restaurant?.cards[0]?.card?.card?.info?.avgRating} stars
               </p>
             ) : (
-              <p className="ml-5 font-bold text-sm text-green-600">
+              <p className="mx-5 font-bold text-sm text-green-600">
                 {restaurant?.cards[0]?.card?.card?.info?.avgRating} stars
               </p>
             )}
@@ -74,9 +77,8 @@ const RestaurantMenu = () => {
       </div>
 
       <div className="flex justify-center p-5">
-        <h1 className="p-2 font-bold text-lg">Menu</h1>
         <ul className="list-disc" data-testid="menu">
-          {uniqueValues.map((foodItem) => (
+          {/* {uniqueValues.map((foodItem) => (
             <li key={foodItem.id}>
               {foodItem.name}
               <button
@@ -87,6 +89,37 @@ const RestaurantMenu = () => {
                 Add Item
               </button>
             </li>
+          ))} */}
+          {uniqueValues.map((uv) => (
+            <>
+              <h1 className="lg:ml-48 font-bold text-xl text-orange-500">
+                {uv.card.card.title}
+              </h1>
+              {uv.card.card.itemCards.map((foodItem) => (
+                <div className="bg-white border-b overflow-hidden mx-auto w-2/3 flex">
+                  <div className="p-6 flex-grow">
+                    <h2 className="font-bold text-base mb-0">
+                      {foodItem.card.info.name}
+                    </h2>
+                    <h2 className="mb-2 text-base">
+                      ₹{foodItem.card.info.price / 100}
+                    </h2>
+                    <p className="text-gray-500 font-bold text-xs md:text-xs">
+                      {foodItem.card.info.description}
+                    </p>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="py-8 flex-none text-xs md:text-base h-24 w-28">
+                      <img
+                        className="rounded-lg shadow-md"
+                        src={Img_CDN_Url + foodItem.card.info.imageId}
+                      ></img>
+                    </div>
+                    <ItemQuantity />
+                  </div>
+                </div>
+              ))}
+            </>
           ))}
         </ul>
       </div>

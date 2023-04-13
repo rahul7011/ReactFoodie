@@ -21,26 +21,17 @@ const useRestaurant = (resId) => {
 
 export const useMenu = (restaurant) => {
   // Store the values in an array
-  const valuesArray = Object.values(
-    Object.fromEntries(
-      Object.entries(
-        Object.values(
-          restaurant?.cards[restaurant?.cards.length-1]?.groupedCard?.cardGroupMap?.REGULAR?.cards
-        )
-      ).filter(([_, v]) => v != null)
-    )
-  ).flatMap((x) => {
-    if (x?.card?.card?.itemCards != null) {
-      return x?.card?.card?.itemCards.map((xx) => xx?.card?.info);
-    }
-    return [];
+  const listOfObjects = Object.values(
+    restaurant?.cards[restaurant?.cards.length - 1]?.groupedCard?.cardGroupMap
+      ?.REGULAR?.cards
+  );
+  const mainObj = listOfObjects.filter((obj) => {
+    if (obj?.card?.card.hasOwnProperty("itemCards")) return obj;
   });
+  // console.log(mainObj);
 
-  // Store the unique values in a state variable
-  const uniqueValues = [...new Set(valuesArray)];
-  //   setUniqueValues(uniqueVal);
-  //Returing Unique Restaurant Menu Data
-  return uniqueValues;
+  const filteredRes = [...mainObj];
+  return filteredRes;
 };
 
 export default useRestaurant;
