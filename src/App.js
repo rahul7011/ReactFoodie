@@ -25,12 +25,10 @@ const AppLayout = () => {
     {/* This will provide Redux Store to our whole App */}
       <Provider store={Store}>
         {/* If we want our data to be dyanmic(it will modify according to our useEffect(if used in future with data)) */}
-        <UserContext.Provider value={user}>
           <Header></Header>
           {/* All the children goes into the Outlet according to the route  */}
           <Outlet />
           <Footer></Footer>
-        </UserContext.Provider>
       </Provider>
     </>
   );
