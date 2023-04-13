@@ -65,7 +65,7 @@ const Login = () => {
                       className="block mb-2 text-sm font-bold text-gray-700"
                       htmlFor="message"
                     >
-                      Message
+                      Password
                     </label>
                     <input
                       type="password"
@@ -91,7 +91,8 @@ const Login = () => {
               <div>
                 <h1>
                   Hi <span className="text-purple-500">{name}</span>, Welcome to
-                  ReactFoodie!
+                  <span className="text-blue-400 font-bold"> React</span>
+                <span className="text-yellow-400 font-bold">Foodie</span>!
                   <br />
                   <br />
                 </h1>
