@@ -14,19 +14,11 @@ import UserContext from "./utils/UserContext.js";
 import { Provider } from "react-redux";
 import Store from "./utils/Store.js";
 import Cart from "./components/Cart.js";
-import Login from "./components/login.js";
+import Login from "./components/Login.js";
 
 const About = lazy(() => import("./components/About")); //this will create chunks
 
 const AppLayout = () => {
-  //Dynamic data that we can change using useEffect
-  const [user, setUser] = useState({
-    //These values will override the default values that we had provided in (UserContext.js)
-    user: {
-      name: "New User Name",
-      email: "newUser@fake.com",
-    },
-  });
   return (
     // React.fragement(Component that is exported by react)
     <>
