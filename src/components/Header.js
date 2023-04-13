@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import useAuth from "../utils/useAuth";
-import { useContext, useState } from "react";
-import UserContext from "../utils/UserContext";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import Logo from "../../media/logo.png";
 //SPA-> Single Page Application
@@ -12,8 +10,6 @@ export const Title = () => (
   </a>
 );
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useAuth();
-  const { user } = useContext(UserContext);
   const [isOpen, setOpen] = useState(false);
 
   const handleDropDown = () => {
@@ -86,21 +82,13 @@ const Header = () => {
                   )}
                 </li>
               </Link>
-              {isLoggedIn === 1 ? (
-                <li
-                  className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-orange-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  onClick={() => setIsLoggedIn(0)}
-                >
-                  {user.name} LogOut
-                </li>
-              ) : (
+              <Link to="/login">
                 <li
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-gray-900 md:dark:hover:text-orange-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  onClick={() => setIsLoggedIn(1)}
                 >
                   Login
                 </li>
-              )}
+              </Link>
             </ul>
           </div>
         </div>

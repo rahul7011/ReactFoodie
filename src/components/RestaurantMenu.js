@@ -3,7 +3,7 @@ import { Img_CDN_Url, Menu_CDN_Url } from "../config";
 import useRestaurant, { useMenu } from "../utils/useRestaurant";
 import Shimmer from "./Shimmer";
 import { addItem } from "../utils/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ItemQuantity from "./ItemQuantity";
 const RestaurantMenu = () => {
   const params = useParams();

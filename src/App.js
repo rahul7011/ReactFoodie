@@ -14,6 +14,7 @@ import UserContext from "./utils/UserContext.js";
 import { Provider } from "react-redux";
 import Store from "./utils/Store.js";
 import Cart from "./components/Cart.js";
+import Login from "./components/login.js";
 
 const About = lazy(() => import("./components/About")); //this will create chunks
 
@@ -82,6 +83,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/login",
+        element: <Login/>,
       },
     ],
   },
