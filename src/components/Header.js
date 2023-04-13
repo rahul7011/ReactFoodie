@@ -55,7 +55,7 @@ const Header = () => {
               isOpen ? "block" : "hidden"
             } w-full md:block md:w-auto" id="navbar-default`}
           >
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
+            <ul className="font-medium flex flex-col p-4 md:p-0 mt-5 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white ">
               <Link to="/">
                 <li
                   className="block py-2 pl-3 pr-4 text-white bg-orange-500 rounded md:bg-transparent md:text-orange-500 md:p-0 dark:text-white md:dark:text-orange-500"
@@ -76,7 +76,14 @@ const Header = () => {
               </Link>
               <Link to="/cart">
                 <li className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-gray-900 md:dark:hover:text-orange-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                  Cart{cartItems.length > 0 ? " " + cartItems.length : ""}
+                  Cart
+                  {cartItems.length > 0 ? (
+                    <span className="text-orange-500">
+                      {" " + cartItems.length}{" "}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </li>
               </Link>
               {isLoggedIn === 1 ? (

@@ -1,32 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    //Initial value of this slice(Cart)
     items: [],
   },
   reducers: {
-    //What dispatch actions will call what reducer functions,kind of like a mapping
     addItem: (state, action) => {
-      //state is the initialState of this slice
-      //action is the data that is coming in
-      if (
-        state.items.find((obj) => obj.id === action.payload.id) != undefined
-      ) {
-        const new_obj = {
-          ...action.payload,
-          id: (parseInt(action.payload.id) + parseInt(state.items.length)).toString(),
-        };
-        action.payload = new_obj;
+      const newItem = action.payload;
+      const itemIndex = state.items.findIndex((item) => item.id === newItem.id);
+      if (itemIndex === -1) {
+        // item doesn't exist in cart, add it with quantity 1
+        state.items.push({ ...newItem, quantity: 1 });
+      } else {
+        // item already exists in cart, increment quantity
+        state.items[itemIndex].quantity++;
       }
-      state.items.push(action.payload);
     },
     removeItem: (state, action) => {
-      const index = state.items.indexOf(action.payload);
-      if (index > -1) {
-        // only splice array when item is found
-        state.items.splice(index, 1); // 2nd parameter means remove one item only
+      const remItem = action.payload;
+      const itemIndex = state.items.findIndex((item) => item.id === remItem.id);
+      if (itemIndex !== -1) {
+        // item exist in cart
+        if (state.items[itemIndex].quantity !== 1) {
+          state.items[itemIndex].quantity--;
+        } else {
+          state.items.splice(itemIndex, 1);
+        }
       }
     },
     clearCart: (state) => {

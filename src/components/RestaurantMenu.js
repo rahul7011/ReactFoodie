@@ -3,7 +3,7 @@ import { Img_CDN_Url, Menu_CDN_Url } from "../config";
 import useRestaurant, { useMenu } from "../utils/useRestaurant";
 import Shimmer from "./Shimmer";
 import { addItem } from "../utils/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ItemQuantity from "./ItemQuantity";
 const RestaurantMenu = () => {
   const params = useParams();
@@ -14,23 +14,11 @@ const RestaurantMenu = () => {
     uniqueValues = useMenu(restaurant);
     console.log(uniqueValues);
     console.log(uniqueValues[0].card.card.itemCards);
-    // console.log(uniqueValues);
-    // {
-    //   const map = new Map();
-    //   uniqueValues = uniqueValues.filter((value) => {
-    //     if (map.has(value.id) == false) {
-    //       map.set(value.id, value);
-    //       return true;
-    //     }
-    //     return false;
-    //   });
-    // }
   }
   const dispatch = useDispatch();
   const addFoodItem = (value) => {
     dispatch(addItem(value));
   };
-
   return !restaurant && !uniqueValues ? (
     <Shimmer />
   ) : (
@@ -112,10 +100,11 @@ const RestaurantMenu = () => {
                     <div className="py-8 flex-none text-xs md:text-base h-24 w-28">
                       <img
                         className="rounded-lg shadow-md"
-                        src={Img_CDN_Url + foodItem.card.info.imageId}
+                        src={Img_CDN_Url + (foodItem?.card?.info?.hasOwnProperty('imageId')===false?"2xempty_cart_yfxml0":foodItem.card.info.imageId)}
                       ></img>
                     </div>
-                    <ItemQuantity />
+                    {/* {console.log(foodItem.card.info)} */}
+                    <ItemQuantity obj={foodItem.card.info} />
                   </div>
                 </div>
               ))}
