@@ -30,6 +30,9 @@
     "test": "jest",
     "watch-test": "jest --watch"
   },
+  "engines": {
+    "node": ">=18.16.0"
+  },
   "author": "",
   "license": "ISC",
   "browserslist": [
