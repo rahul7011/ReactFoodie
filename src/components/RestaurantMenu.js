@@ -23,6 +23,7 @@ const RestaurantMenu = () => {
     <Shimmer />
   ) : (
     <div>
+      {console.log(restaurant)}
       <div className="m-2 p-4 text-center bg-yellow-300 flex flex-col md:flex-row">
         <div className="mx-auto md:ml-30 md:mr-5">
           <img

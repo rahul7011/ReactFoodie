@@ -17,8 +17,12 @@ const Body = () => {
   async function getRestaurants() {
     const data = await fetch(All_Restaurant_Url);
     const json = await data.json();
-    setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-    setfilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    // console.log(json);
+    // setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    console.log(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setAllRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    // setfilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    setfilteredRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
   }
 
   //This will determine whether the user is online or not?
@@ -26,11 +30,11 @@ const Body = () => {
   if (!isOnline) {
     return <h1>🔴Offline,Check your Internet Connection</h1>;
   }
-
   return allRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <>
+    {/* {console.log(allRestaurants)} */}
       <div className="p-4 my-5 text-center">
         <input
           type="text"
@@ -52,10 +56,10 @@ const Body = () => {
         {filteredRestaurants.map((restaurant) => {
           return (
             <Link
-              to={"/restaurant/" + restaurant.data.id}
-              key={restaurant.data.id}
+              to={"/restaurant/" + restaurant.info.id}
+              key={restaurant.info.id}
             >
-              <RestrauntCard {...restaurant.data} />
+              <RestrauntCard {...restaurant.info} />
             </Link>
           );
         })}
