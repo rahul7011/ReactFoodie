@@ -19,10 +19,16 @@ const Body = () => {
     const json = await data.json();
     // console.log(json);
     // setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-    console.log(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-    setAllRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    console.log(
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setAllRestaurants(
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
     // setfilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-    setfilteredRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setfilteredRestaurants(
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   }
 
   //This will determine whether the user is online or not?
@@ -30,11 +36,11 @@ const Body = () => {
   if (!isOnline) {
     return <h1>🔴Offline,Check your Internet Connection</h1>;
   }
-  return allRestaurants.length === 0 ? (
+  return allRestaurants == null || allRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <>
-    {/* {console.log(allRestaurants)} */}
+      {/* {console.log(allRestaurants)} */}
       <div className="p-4 my-5 text-center">
         <input
           type="text"
